@@ -21,8 +21,8 @@ const posts = (await getCollection("blog")).sort(
     <main
       class="flex w-full grow justify-center bg-gradient-to-b from-slate-100 to-white"
     >
-      <section class="px-12">
-        <h1 class="pb-6 pt-5 text-3xl font-bold">Blog Articles</h1>
+      <section class="px-12 pb-16">
+        <h1 class="pb-6 pt-5 text-2xl font-bold sm:text-3xl">Blog Articles</h1>
         <ul class="flex flex-wrap gap-8">
           {
             posts.map((post) => (
@@ -43,7 +43,7 @@ const posts = (await getCollection("blog")).sort(
                       {post.data.description}
                     </span>
                   </div>
-                  <h2 class="mt-4 text-center text-3xl font-bold">
+                  <h2 class="mt-4 text-center text-2xl font-bold sm:text-3xl">
                     {post.data.title}
                   </h2>
                   <p class="text-center text-slate-500 transition ease-in group-hover:text-blue-700">
