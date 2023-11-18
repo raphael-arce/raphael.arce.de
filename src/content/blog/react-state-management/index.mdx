@@ -23,7 +23,14 @@ Let us imagine we have states that we want to share/manage between components to
 and simplify each component. There are multiple ways how to achieve this.
 Here is an interactive example:
 
-<Example1 client:load />
+{/* prettier-ignore */}
+<figure>
+  <Example1 client:load />
+  <figcaption className="text-center">
+    Example 1, source:
+    <a className="text-gray-800 text-opacity-50" href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/react-state-management/components/example-1" target="_blank">GitHub</a>
+  </figcaption>
+</figure>
 
 The standard, <a href="https://react.dev/learn/sharing-state-between-components" target="_blank"> recommended way</a>,
 is to use the <a href="https://react.dev/reference/react/useState" target="_blank"> useState</a>
@@ -36,9 +43,7 @@ The state's value is passed down as a prop to `LeaveAA` and the setter function 
 But if you click on the `X*2` button you'll notice that not only the component `LeaveAA`,
 where the value is used, is re-rendered[^1], but also `LeaveAB` and `BranchA`.
 
-[^1]: Rendered in the VDOM. The actual DOM will only be updated after reconciliation.
-
-Now let's take a look at `BranchB`.
+Now let's take a look at <code className="bg-gray-100">BranchB</code>.
 Here we use the zustand library to manage the state.
 We declare the state _outside_ our components and _inject_ them into the components that need it.
 That means that only the `LeaveBA` receives the state's value, while the `LeaveBB` receives the setter function.
@@ -46,12 +51,18 @@ Big difference! Thanks to that, only the component `LeaveBA` is re-rendered when
 
 Let's look at another example:
 
-<Example2 client:load />
+{/* prettier-ignore */}
+<figure>
+	<Example2 client:load />
+	<figcaption className="text-center">
+		Example 2, source:
+		<a className="text-gray-800 text-opacity-50" href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/react-state-management/components/example-2" target="_blank">GitHub</a>
+	</figcaption>
+</figure>
 
-Here, the components that read the state (`LeaveAA`, `LeaveAB`) are further away from the components that update the state
-(`LeaveBA`, `LeaveBB`).
-So we lifted the state up once further, to the `Root` component, and prop-drilled our value/setter down to the leaves.
-And now the difference: when you click on `X*2`, ALL components are re-rendered.
+Here, the components that read the state (`LeaveAA`, `LeaveAB`) are further away from the components that update the
+state (`LeaveBA`, `LeaveBB`). So we lifted the state up once further, to the `Root` component, and prop-drilled our
+value/setter down to the leaves. And now the difference: when you click on `X*2`, ALL components are re-rendered.
 But when you click on `Y*2`, still only the `LeaveBA` is re-rendered.
 
 Now imagine having a large application with complex components, complex states and complex effects.
@@ -61,9 +72,11 @@ is an insane improvement. And at the same time, it improves (IMO) readability by
 complexity into smaller, more understandable/manageable pieces.
 
 <b>
-  That leaves me to wonder, why is this not the standard way of doing things?
+  That _leaves_ me to wonder, why is this not the standard way of doing things?
 </b>
 
 <hr />
 
 Footnotes:
+
+[^1]: Rendered in the VDOM. The actual DOM will only be updated after reconciliation.
