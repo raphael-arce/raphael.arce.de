@@ -1,45 +1,61 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body class="flex flex-col min-h-screen">
-		<Header />
-		<main>
-			<section>
-				<ul class="flex flex-wrap gap-8">
-					{
-						posts.map((post) => (
-							<li class="">
-								<a href={`/blog/${post.slug}/`}>
-									<div class="relative">
-										<img width={720} height={360} src={post.data.heroImage} alt="An illustration with the text: One State To Rull Them All" class="rounded-xl"/>
-										<span class="bottom-5 text-center absolute w-full font-mono text-white">{post.data.description}</div>
-									</div>
-									<h4 class="text-3xl font-bold mt-4">{post.data.title}</h4>
-									<p class="text-slate-500">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main
+      class="flex w-full grow justify-center bg-gradient-to-b from-slate-100 to-white"
+    >
+      <section class="px-12">
+        <h1 class="pb-6 pt-5 text-3xl font-bold">Blog Articles</h1>
+        <ul class="flex flex-wrap gap-8">
+          {
+            posts.map((post) => (
+              <li>
+                <a
+                  class="group transition ease-in hover:text-blue-700"
+                  href={`/blog/${post.slug}/`}
+                >
+                  <div class="relative">
+                    <img
+                      width={720}
+                      height={360}
+                      src={post.data.heroImage}
+                      alt={`An illustration with the text: ${post.data.description}`}
+                      class="rounded-xl transition ease-in group-hover:shadow-2xl"
+                    />
+                    <span class="absolute bottom-5 w-full text-center font-mono text-white sm:text-xl">
+                      {post.data.description}
+                    </span>
+                  </div>
+                  <h2 class="mt-4 text-center text-3xl font-bold">
+                    {post.data.title}
+                  </h2>
+                  <p class="text-center text-slate-500 transition ease-in group-hover:text-blue-700">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>

@@ -1,86 +1,74 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
 
-	<body class="flex flex-col min-h-screen">
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="text-center text-slate-500">
-					<FormattedDate date={pubDate} />
+  <body class="flex min-h-screen w-full flex-col items-center">
+    <Header />
+    <main
+      class="flex w-full flex-col items-center bg-gradient-to-b from-slate-100 to-white"
+    >
+      <article
+        class={`
+        max-w-[720px]
+        prose 
+        prose-code:px-1.5 prose-code:bg-gray-100 prose-code:rounded-lg 
+        prose-code:font-mono prose-code:font-medium
+        `}
+      >
+        <div class="w-full">
+          {
+            heroImage && (
+              <div class="relative">
+                <img
+                  width={720}
+                  height={360}
+                  src={heroImage}
+                  alt={`An illustration with the text: ${description}`}
+                  class="rounded-xl"
+                />
+                <span
+                  class="absolute bottom-5 w-full text-center font-mono text-white md:text-2xl"
+                  style="text-wrap: balance"
+                >
+                  {description}
+                </span>
+              </div>
+            )
+          }
+        </div>
+        <div>
+          <p class="text-center text-slate-500">
+            <FormattedDate date={pubDate} />
 
-					{
-						updatedDate && (
-							<div class="last-updated-on">
-								Last updated on <FormattedDate date={updatedDate} />
-							</div>
-						)
-					}
-					</div>
+            {
+              updatedDate && (
+                <>
+                  Last updated on <FormattedDate date={updatedDate} />
+                </>
+              )
+            }
+          </p>
 
-					<h1 class="text-5xl font-bold">{title}</h1>
-					<hr />
-					
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+          <h1 class="text-center">{title}</h1>
+          <hr />
+
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>
