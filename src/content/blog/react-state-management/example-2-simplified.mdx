@@ -1,0 +1,94 @@
+---
+title: "Example-1-simplified"
+description: ""
+pubDate: "2023-11-21"
+---
+
+```tsx
+function Root() {
+  const [counterA, setCounterA] = useState(1);
+
+  return (
+    <>
+      <h2>Root</h2>
+      <BranchA counterA={counterA} />
+      <BranchB setCounterA={setCounterA} />
+    </>
+  );
+}
+
+function BranchA({ counterA }: { counterA: number }) {
+  return (
+    <>
+      <h3>BranchA</h3>
+      <LeaveAA counterA={counterA} />
+      <LeaveAB />
+    </>
+  );
+}
+
+function LeaveAA({ counterA }: { counterA: number }) {
+  return (
+    <>
+      <h4>LeaveAA</h4>
+      <p>X = {counterA}</p>
+    </>
+  );
+}
+
+const useStore = create((set) => ({
+  counterB: 1,
+  increaseB: () => set((state) => ({ counterB: state.counterB * 2 })),
+}));
+
+function LeaveAB() {
+  const counterB = useStore((state) => state.counterB);
+
+  return (
+    <>
+      <h4>LeaveAB</h4>
+      <p>Y = {counterB}</p>
+    </>
+  );
+}
+
+function BranchB({
+  setCounterA,
+}: {
+  setCounterA: React.Dispatch<React.SetStateAction<number>>;
+}) {
+  return (
+    <>
+      <h3>BranchB</h3>
+      <LeaveBA setCounterA={setCounterA} />
+      <LeaveBB />
+    </>
+  );
+}
+
+function LeaveBA({
+  setCounterA,
+}: {
+  setCounterA: React.Dispatch<React.SetStateAction<number>>;
+}) {
+  return (
+    <>
+      <h4>LeaveBA</h4>
+      <button onClick={() => setCounterA((counterA) => counterA * 2)}>
+        X*2
+      </button>
+    </>
+  );
+}
+
+function LeaveBB() {
+  const increaseB = useStore((state) => state.increaseB);
+
+  return (
+    <>
+      <h4>LeaveBB</h4>
+      <button onClick={() => increaseB()}>Y*2</button>
+    </>
+  );
+}
+```
