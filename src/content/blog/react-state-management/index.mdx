@@ -16,13 +16,13 @@ _TLDR: Extract state from components, don't lift it up._
 
 I have a love-hate relationship with React.
 I often think it is a wonderful library, making it easy to get started with something.
-Before you know it, you went down a rabbit hole, and have built something marvelous.
+Before you know it, you've gone down a rabbit hole and have built something marvelous.
 
-But then there are times when I think things are weird, counter-intuitive and unnecessarily hard.
+But then there are times when I think things are weird, counter-intuitive, and unnecessarily hard.
 One of those things is state management.
 
-Let us imagine we have states that we want to share/manage between components to separate concerns
-and simplify each component. There are multiple ways how to achieve this.
+Let's imagine we have states that we want to share/manage between components to separate concerns and simplify
+each component. There are multiple ways to achieve this.
 Here is an interactive example:
 
 {/* prettier-ignore */}
@@ -37,30 +37,31 @@ Here is an interactive example:
 <details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
   {/* prettier-ignore */}
   <summary className="collapse-title font-medium">Example 1 simplified code (without styling or rendering counter)</summary>
-  <div className="xs:w-auto 2xs:w-96 collapse-content mx-auto w-72">
+  <div className="collapse-content mx-auto w-72 2xs:w-96 xs:w-auto">
     <Example1Simplified />
   </div>
 </details>
 
-The standard, <a href="https://react.dev/learn/sharing-state-between-components" target="_blank"> recommended way</a>,
-is to use the <a href="https://react.dev/reference/react/useState" target="_blank"> useState</a>
+The standard, <a href="https://react.dev/learn/sharing-state-between-components" target="_blank"> recommended way</a> is
+to use the <a href="https://react.dev/reference/react/useState" target="_blank"> useState</a>
 hook and _lift the state up_ to a common ancestor. Then, you can prop-drill (or use a <a href="https://react.dev/reference/react/useContext" target="_blank"> context</a>)
 to pass the state down to the components that need it.
 
 This is implemented in the component <code className="bg-gray-200">BranchA</code>.
-The state is declared in the component <code className="bg-gray-200">BranchA</code>.
-The state's value is passed down as a prop to <code className="bg-gray-200">LeaveAA</code>
-and the setter function to <code className="bg-gray-200">LeaveAB</code>.
-But if you click on the `X*2` button you'll notice that not only the component <code className="bg-gray-200">LeaveAA</code>,
+The state is declared in <code className="bg-gray-200">BranchA</code>, and its value is passed down
+as a prop to <code className="bg-gray-200">LeaveAA</code> and the setter function
+to <code className="bg-gray-200">LeaveAB</code>.
+However, if you click on the <code className="bg-gray-200">X\*2</code> button, you'll notice that not only
+the component <code className="bg-gray-200">LeaveAA</code>,
 where the value is used, is re-rendered[^1],
 but also <code className="bg-gray-200">LeaveAB</code> and <code className="bg-gray-200">BranchA</code>.
 
-Now let's take a look at <code className="bg-gray-200">BranchB</code>.
-Here we use the zustand library to manage the state.
-We declare the state _outside_ our components and _inject_ them into the components that need it.
-That means that only the <code className="bg-gray-200">LeaveBA</code> receives the state's value,
+Now, let's take a look at <code className="bg-gray-200">BranchB</code>.
+Here, we use the zustand library to manage the state.
+We declare the state _outside_ our components and _inject_ it into the components that need it.
+This means that only the <code className="bg-gray-200">LeaveBA</code> receives the state's value,
 while the <code className="bg-gray-200">LeaveBB</code> receives the setter function.
-Big difference! Thanks to that, only the component <code className="bg-gray-200">LeaveBA</code> is
+A significant difference! Thanks to that, only the component <code className="bg-gray-200">LeaveBA</code> is
 re-rendered when clicking on the <code className="bg-gray-200">Y\*2</code> button.
 
 Let's look at another example:
@@ -77,7 +78,7 @@ Let's look at another example:
 <details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
   {/* prettier-ignore */}
   <summary className="collapse-title font-medium">Example 2 simplified code (without styling or rendering counter)</summary>
-  <div className="xs:w-auto 2xs:w-96 collapse-content mx-auto w-72">
+  <div className="collapse-content mx-auto w-72 2xs:w-96 xs:w-auto">
     <Example2Simplified />
   </div>
 </details>
@@ -86,16 +87,16 @@ Here, the components that read the state
 (<code className="bg-gray-200">LeaveAA</code>, <code className="bg-gray-200">LeaveAB</code>)
 are further away from the components that update the state
 (<code className="bg-gray-200">LeaveBA</code>, <code className="bg-gray-200">LeaveBB</code>).
-So we lifted the state up once further, to the <code className="bg-gray-200">Root</code> component, and prop-drilled our
-value/setter down to the leaves. And now the difference: when you click on <code className="bg-gray-200">X\*2</code>,
-ALL components are re-rendered. But when you click on <code className="bg-gray-200">Y\*2</code>, still
-only the <code className="bg-gray-200">LeaveBA</code> is re-rendered.
+So we lifted the state up one level further, to the <code className="bg-gray-200">Root</code> component and prop-drilled our
+value/setter down to the leaves. And now, the difference: when you click on <code className="bg-gray-200">X\*2</code>,
+ALL components are re-rendered. However, when you click on <code className="bg-gray-200">Y\*2</code>, still
+only <code className="bg-gray-200">LeaveBA</code> is re-rendered.
 
-Now imagine having a large application with complex components, complex states and complex effects.
-Being able to surgically re-render only the components that need to be updated, without having to use
-any other features like <a href="https://react.dev/reference/react/memo" target="_blank">memo</a>,
-is an insane improvement. And at the same time, it improves (IMO) readability by separating concerns and splitting-up
-complexity into smaller, more understandable/manageable pieces.
+Now, imagine having a large application with intricate components, intricate states and intricate effects.
+Being able to selectively re-render only the components that need to updating, without relying on additional features
+like <a href="https://react.dev/reference/react/memo" target="_blank">memo</a>,
+is a significant improvement. Simultaneously, it enhances readability (in my opinion) by separating concerns and
+breaking down complexity into smaller, more understandable/manageable pieces.
 
 <b>
   That _leaves_ me to wonder, why is this not the standard way of doing things?
