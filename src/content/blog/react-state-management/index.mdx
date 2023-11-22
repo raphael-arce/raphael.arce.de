@@ -34,10 +34,10 @@ Here is an interactive example:
   </figcaption>
 </figure>
 
-<details className="group collapse collapse-plus bg-gray-100 hover:bg-gray-200">
+<details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
   {/* prettier-ignore */}
   <summary className="collapse-title font-medium">Example 1 simplified code (without styling or rendering counter)</summary>
-  <div className="collapse-content">
+  <div className="xs:w-auto 2xs:w-96 collapse-content mx-auto w-72">
     <Example1Simplified />
   </div>
 </details>
@@ -47,21 +47,21 @@ is to use the <a href="https://react.dev/reference/react/useState" target="_blan
 hook and _lift the state up_ to a common ancestor. Then, you can prop-drill (or use a <a href="https://react.dev/reference/react/useContext" target="_blank"> context</a>)
 to pass the state down to the components that need it.
 
-This is implemented in the component <code className="bg-gray-100">BranchA</code>.
-The state is declared in the component <code className="bg-gray-100">BranchA</code>.
-The state's value is passed down as a prop to <code className="bg-gray-100">LeaveAA</code>
-and the setter function to <code className="bg-gray-100">LeaveAB</code>.
-But if you click on the `X*2` button you'll notice that not only the component <code className="bg-gray-100">LeaveAA</code>,
+This is implemented in the component <code className="bg-gray-200">BranchA</code>.
+The state is declared in the component <code className="bg-gray-200">BranchA</code>.
+The state's value is passed down as a prop to <code className="bg-gray-200">LeaveAA</code>
+and the setter function to <code className="bg-gray-200">LeaveAB</code>.
+But if you click on the `X*2` button you'll notice that not only the component <code className="bg-gray-200">LeaveAA</code>,
 where the value is used, is re-rendered[^1],
-but also <code className="bg-gray-100">LeaveAB</code> and <code className="bg-gray-100">BranchA</code>.
+but also <code className="bg-gray-200">LeaveAB</code> and <code className="bg-gray-200">BranchA</code>.
 
-Now let's take a look at <code className="bg-gray-100">BranchB</code>.
+Now let's take a look at <code className="bg-gray-200">BranchB</code>.
 Here we use the zustand library to manage the state.
 We declare the state _outside_ our components and _inject_ them into the components that need it.
-That means that only the <code className="bg-gray-100">LeaveBA</code> receives the state's value,
-while the <code className="bg-gray-100">LeaveBB</code> receives the setter function.
-Big difference! Thanks to that, only the component <code className="bg-gray-100">LeaveBA</code> is
-re-rendered when clicking on the <code className="bg-gray-100">Y\*2</code> button.
+That means that only the <code className="bg-gray-200">LeaveBA</code> receives the state's value,
+while the <code className="bg-gray-200">LeaveBB</code> receives the setter function.
+Big difference! Thanks to that, only the component <code className="bg-gray-200">LeaveBA</code> is
+re-rendered when clicking on the <code className="bg-gray-200">Y\*2</code> button.
 
 Let's look at another example:
 
@@ -74,22 +74,22 @@ Let's look at another example:
 	</figcaption>
 </figure>
 
-<details className="group collapse collapse-plus bg-gray-100 hover:bg-gray-200">
+<details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
   {/* prettier-ignore */}
   <summary className="collapse-title font-medium">Example 2 simplified code (without styling or rendering counter)</summary>
-  <div className="collapse-content">
+  <div className="xs:w-auto 2xs:w-96 collapse-content mx-auto w-72">
     <Example2Simplified />
   </div>
 </details>
 
 Here, the components that read the state
-(<code className="bg-gray-100">LeaveAA</code>, <code className="bg-gray-100">LeaveAB</code>)
+(<code className="bg-gray-200">LeaveAA</code>, <code className="bg-gray-200">LeaveAB</code>)
 are further away from the components that update the state
-(<code className="bg-gray-100">LeaveBA</code>, <code className="bg-gray-100">LeaveBB</code>).
-So we lifted the state up once further, to the <code className="bg-gray-100">Root</code> component, and prop-drilled our
-value/setter down to the leaves. And now the difference: when you click on <code className="bg-gray-100">X\*2</code>,
-ALL components are re-rendered. But when you click on <code className="bg-gray-100">Y\*2</code>, still
-only the <code className="bg-gray-100">LeaveBA</code> is re-rendered.
+(<code className="bg-gray-200">LeaveBA</code>, <code className="bg-gray-200">LeaveBB</code>).
+So we lifted the state up once further, to the <code className="bg-gray-200">Root</code> component, and prop-drilled our
+value/setter down to the leaves. And now the difference: when you click on <code className="bg-gray-200">X\*2</code>,
+ALL components are re-rendered. But when you click on <code className="bg-gray-200">Y\*2</code>, still
+only the <code className="bg-gray-200">LeaveBA</code> is re-rendered.
 
 Now imagine having a large application with complex components, complex states and complex effects.
 Being able to surgically re-render only the components that need to be updated, without having to use
