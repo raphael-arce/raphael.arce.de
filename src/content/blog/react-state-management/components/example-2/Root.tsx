@@ -15,7 +15,7 @@ export default function Root() {
       <p className="pb-3 text-sm">
         <RenderingInfo count={count} />
       </p>
-      <div className="flex w-full flex-col gap-2 px-2 md:flex-row">
+      <div className="sm:flex-row flex w-full flex-col gap-2 px-2">
         <BranchA x={x} />
         <BranchB setX={setX} />
       </div>

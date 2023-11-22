@@ -8,14 +8,14 @@ export function BranchB() {
   const count = useRenderingCounter();
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border-2 border-slate-500 bg-amber-50 py-2 md:w-1/2">
+    <div className="sm:w-1/2 flex flex-col gap-2 rounded-lg border-2 border-slate-500 bg-amber-50 py-2">
       <h3 className="text-lg">
         BranchB: <i>zustand</i>
       </h3>
       <p className="pb-2 text-sm">
         <RenderingInfo count={count} />
       </p>
-      <div className="flex h-full flex-col gap-2 px-2 md:flex-row">
+      <div className="sm:flex-row flex h-full flex-col gap-2 px-2">
         <LeaveBA />
         <LeaveBB />
       </div>

@@ -10,7 +10,7 @@ export function LeaveAB() {
   const y = useStore((state) => state.y);
 
   return (
-    <div className="flex flex-col justify-between rounded-lg border-2 border-slate-500 bg-amber-200 p-2 md:w-1/2">
+    <div className="sm:w-1/2 flex flex-col justify-between rounded-lg border-2 border-slate-500 bg-amber-200 p-2">
       <h4 className="text-lg">LeaveAB</h4>
       <p className="py-3 text-sm">
         <RenderingInfo count={count} />
