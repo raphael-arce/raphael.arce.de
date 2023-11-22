@@ -4,8 +4,10 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 
+import robotsTxt from "astro-robots-txt";
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://raphael-arce.github.io',
-  integrations: [mdx(), sitemap(), tailwind(), react()]
+  integrations: [mdx(), sitemap(), tailwind(), react(), robotsTxt()]
 });
