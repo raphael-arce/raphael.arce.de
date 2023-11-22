@@ -9,7 +9,7 @@ export function LeaveBB() {
   const increaseB = useStore((state) => state.increaseB);
 
   return (
-    <div className="sm:w-1/2 flex h-full flex-col items-center justify-between rounded-lg border-2 border-slate-500 bg-amber-200 p-2">
+    <div className="flex h-full flex-col items-center justify-between rounded-lg border-2 border-slate-500 bg-amber-200 p-2 sm:w-1/2">
       <h4 className="text-lg">LeaveBB</h4>
       <p className="py-3 text-sm">
         <RenderingInfo count={count} />
