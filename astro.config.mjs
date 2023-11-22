@@ -8,6 +8,6 @@ import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://raphael-arce.github.io',
+  site: 'https://raphael.arce.de',
   integrations: [mdx(), sitemap(), tailwind(), react(), robotsTxt()]
 });
