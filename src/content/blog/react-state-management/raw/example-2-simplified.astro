@@ -1,10 +1,9 @@
 ---
-title: "Example-1-simplified"
-description: ""
-pubDate: "2023-11-21"
+import { Code } from "astro:components";
 ---
 
-```tsx
+<Code
+  code={`
 function Root() {
   const [counterA, setCounterA] = useState(1);
 
@@ -91,4 +90,7 @@ function LeaveBB() {
     </>
   );
 }
-```
+`}
+  lang="tsx"
+  wrap
+/>
