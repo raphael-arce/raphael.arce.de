@@ -11,7 +11,7 @@ export default function Root() {
 
   return (
     <div className="not-prose flex flex-col items-center gap-2 rounded-lg border-2 border-slate-500 bg-blue-50 pb-2 pt-3 text-center">
-      <h2>Root</h2>
+      <h2 className="text-lg">Root</h2>
       <p className="pb-3 text-sm">
         <RenderingInfo count={count} />
       </p>
