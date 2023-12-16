@@ -57,7 +57,7 @@ where the value is used, is re-rendered[^1],
 but also <code className="bg-gray-200">LeaveAB</code> and <code className="bg-gray-200">BranchA</code>.
 
 Now, let's take a look at <code className="bg-gray-200">BranchB</code>.
-Here, we use the zustand library to manage the state.
+Here, we use the <a href="https://github.com/pmndrs/zustand" target="_blank">zustand library</a> to manage the state.
 We declare the state _outside_ our components and _inject_ it into the components that need it.
 This means that only the <code className="bg-gray-200">LeaveBA</code> receives the state's value,
 while the <code className="bg-gray-200">LeaveBB</code> receives the setter function.
