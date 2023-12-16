@@ -1,12 +1,210 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_DESCRIPTION } from "../consts";
+
+const yearsOfExperience = new Date().getFullYear() - 2019;
 ---
 
-<Layout
-  title="About Raphael Arce"
-  description="This page describes me"
-  pubDate={new Date("November 12 2023")}
-  heroImage="/blog-placeholder-about.jpg"
->
-  <p>Coming soon!</p>
-</Layout>
+<html lang="en">
+  <head>
+    <BaseHead title={"About me"} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="text-slate flex min-h-screen flex-col">
+    <Header />
+    <main
+      class="flex w-full grow justify-center bg-gradient-to-b from-slate-100 to-white py-2"
+    >
+      <div
+        class="flex max-w-[720px] flex-col justify-center border bg-white px-8 py-4"
+      >
+        <section>
+          <div class="flex w-full gap-4">
+            <img
+              src="me.png"
+              class="h-20 w-20 rounded-full"
+              alt="A picture of Raphael Arce"
+            />
+
+            <div class="flex flex-col">
+              <h1 class="-mt-1 text-2xl text-blue-600">Raphael Arce</h1>
+              <h2 class="flex items-center">
+                Berlin, Germany &nbsp;<span class="mb-1.5 text-5xl leading-3"
+                  >·</span
+                >&nbsp; {yearsOfExperience} years of experience
+              </h2>
+              <h3 class="pt-4">
+                Interested in <b>Frontend</b> and <b>Full-Stack</b> development.
+              </h3>
+            </div>
+          </div>
+
+          <div class="flex w-full gap-4 pt-6">
+            <div class="flex w-20 justify-end">
+              <h4 class="text-slate-400">About</h4>
+            </div>
+            <p>Software Engineer who is passionate about Web Performance.</p>
+          </div>
+        </section>
+        <section>
+          <div class="flex w-full gap-4 pt-6">
+            <div class="flex w-20 justify-end">
+              <h4 class="text-slate-400">Work</h4>
+            </div>
+            <div class="flex w-fit flex-col">
+              <p>
+                <b>Frontend Engineer</b>
+                 &nbsp;@&nbsp;
+                <a
+                  href="https://www.technologiestiftung-berlin.de/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >Technologiestiftung Berlin</a
+                >
+                <span class="pl-2 italic text-slate-300"
+                  >Apr 2023 - Present</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="flex w-full flex-col gap-4 pl-24 pt-2">
+            <p>
+              Open Source Prototypes I have worked during my time at
+              Technologiestiftung Berlin:
+            </p>
+            <ul class="flex flex-col gap-2">
+              <li class="list-inside list-disc">
+                <span class="italic">Idea Machine</span>, a physical computing
+                prototype that uses ChatGPT to generate ideas for the
+                digitalization of Berlin:
+                <a
+                  href="https://github.com/technologiestiftung/idea-machine"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >GitHub Link</a
+                >
+              </li>
+              <li class="list-inside list-disc">
+                <a
+                  href="https://chat.oeffentliches-gestalten.de/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >Chatbot Öffentliches Gestalten</a
+                >, a proof-of-concept for a web app using ChatGPT as chatbot to
+                answer questions about the book
+                <i>Public Service Design Handbook</i>: <a
+                  href="https://github.com/technologiestiftung/oeffentliches-gestalten-gpt-search"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >GitHub Link</a
+                >
+              </li>
+              <li class="list-inside list-disc">
+                <a
+                  href="https://giessdenkiez.de/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >Giess den Kiez</a
+                >, a web app that was made to enable coordinated citizen
+                participation in the irrigation of urban trees: <a
+                  href="https://github.com/technologiestiftung/giessdenkiez-de"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >GitHub Link</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex w-full gap-4 pt-6">
+            <div class="flex w-20"></div>
+            <div class="flex w-fit flex-col flex-wrap gap-4">
+              <p>
+                <b>Full-Stack Engineer</b>
+                 &nbsp;@&nbsp;
+                <a
+                  href="https://www.acker.co/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >Acker e. V.</a
+                >
+                <span class="pl-2 italic text-slate-300"
+                  >Feb 2020 - Apr 2023</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="flex w-full flex-col gap-4 pl-24 pt-2">
+            <ul class="flex flex-col gap-2">
+              <li class="list-inside list-disc">
+                Implementation of a new website as part of a brand relaunch:
+                <a
+                  href="https://www.acker.co/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >acker.co</a
+                >
+              </li>
+              <li class="list-inside list-disc">
+                Establishment of an educational platform with personalized
+                content for educators to enhance their curriculum with Acker's
+                programs, currently serving over 11,000 users:
+                <a
+                  href="https://mein.acker.co/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                >
+                  mein.acker.co
+                </a>
+              </li>
+              <li class="list-inside list-disc">
+                Maintenance of the iOS/Android app <a
+                  href="https://apps.apple.com/de/app/ackerpause/id1515122523"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >Ackerpause</a
+                >.
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <div class="flex w-full gap-4 pt-6">
+            <div class="flex w-20 justify-end">
+              <h4 class="text-slate-400">Education</h4>
+            </div>
+            <div class="flex w-fit flex-col">
+              <p>
+                <b>Master of Science Computer Science</b>
+                 &nbsp;@&nbsp;
+                <a
+                  href="https://tu.berlin/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >TU Berlin</a
+                >
+                <span class="pl-2 italic text-slate-300">Dec 2021</span>
+              </p>
+
+              <p>
+                <b>Bachelor of Science Engineering Informatics</b>
+                 &nbsp;@&nbsp;
+                <a
+                  href="https://htw-berlin.de/"
+                  target="_blank"
+                  class="text-blue-600 underline visited:text-purple-500"
+                  >HTW Berlin</a
+                >
+                <span class="pl-2 italic text-slate-300">Apr 2016</span>
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
