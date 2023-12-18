@@ -1,7 +1,7 @@
 ---
 title: "Writing a map library from scratch - Part 1"
-description: "Map It Like It's Hot / Mosaïque FM"
-pubDate: "Nov 26 2023"
+description: "Off the charts"
+pubDate: "Dec 18 2023"
 heroImage: "/blog-placeholder-2.jpg"
 ---
 
@@ -88,6 +88,13 @@ At zoom level 1, you need 4 tiles, which will look like this:
 			</div>
 			<div className="absolute right-[256px] top-0 h-[512px] border-r border-dashed border-black" />
 			<div className="absolute right-0 top-[256px] w-[512px] border-t border-dashed border-black" />
+			<div
+				className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
+				style="font:11px sans-serif"
+			>
+				{/* prettier-ignore */}
+				<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+			</div>
 		</div>
 
     <figcaption className="text-center">
@@ -107,24 +114,126 @@ Now, we need to figure out which tiles, using the <code className="bg-gray-200">
 On zoom level 14, the world is divided into <code className="bg-gray-200">2<sup>14</sup> = 16,384</code> x- and y-tiles.
 
 Knowing that one tile has a size of 256 pixels, we can calculate the size of each axis: <code className="bg-gray-200">axisSize = 16,384 ⋅ 256 = 4,194,304</code>
-pixels on the x- and y-axis.
+pixels on
+the x- and y-axis.
 
 Now begins the fun part. We need to use the Web Mercator Projection formula to convert our latitude/longitude
 coordinates (based on a globe) to x/y coordinates (based on a flat surface):
 
 ```js
 x = axisSize * (longitude / 360 + 0.5);
+x = 4194304 * (13.4 / 360 + 0.5);
+x = 2253273.3155555557;
 ```
 
 {/* prettier-ignore */}
 ```js
 y = (axisSize * (1 - Math.log(Math.tan(Math.PI * (0.25 + latitude / 360))) / Math.PI)) / 2;
+y = (4194304 * (1 - Math.log(Math.tan(Math.PI * (0.25 + 52.52 / 360))) / Math.PI)) / 2;
+y = 1375543.6427981234;
 ```
 
 _Note: The Web Mercator Projection only works for latitudes between 85°N to 85°S._
+
+Since we want to center our latitude/longitude coordinates in the middle of our container, we need to subtract half
+of the container size from our x/y coordinates:
+
+```js
+width = 400;
+height = 300;
+
+x0 = Math.floor(x - width / 2);
+x0 = 2253073;
+
+y0 = Math.floor(y - height / 2);
+y0 = 1375393;
+```
+
+However, x0 and y0 are coordinates in pixels. We still need to convert them to tile coordinates,
+i.e. the matching number for the <code className="bg-gray-200">/z/x/y.png</code> params.
+To do this, we need to floor divide our x0 and y0 by 256:
+
+```js
+topLeftCornerTileX = Math.floor(x0 / 256);
+topLeftCornerTileX = 8801;
+
+topLeftCornerTileY = Math.floor(y0 / 256);
+topLeftCornerTileY = 5372;
+```
+
+Now, we know that we need to fetch the tile <code className="bg-gray-200">/14/8801/5372.png</code>, which is:
+
+<figure className="flex flex-col w-full items-center">
+	<div className="relative w-[256px] h-[256px]">
+		<img className="my-0" src="https://tile.osm.org/14/8801/5372.png" alt="A map of the world" />
+		<div
+			className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
+			style="font:11px sans-serif"
+		>
+			{/* prettier-ignore */}
+			<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+		</div>
+	</div>
+
+    <figcaption className="text-center">
+    	Top Left Tile
+    </figcaption>
+
+</figure>
+
+This seems correct! Let's fill our container with the adjacent tiles and a bit of css to position it correctly:
+
+```js
+result = `<div style="height: ${height}px; position: relative; overflow: hidden;">`;
+tileSize = 256;
+
+for (let tileY = topLeftCornerTileY; tileY * tileSize < y0 + height; tileY++) {
+  for (let tileX = topLeftCornerTileX; tileX * tileSize < x0 + width; tileX++) {
+    result += `<img src="https://tile.osm.org/14/${tileX}/${tileY}.png" alt="" style="
+        position: absolute;
+        left: ${tileSize * 256 - x0}px;
+        top: ${tileSize * 256 - y0}px;">`;
+  }
+}
+
+result += "</div>";
+```
+
+_Et voilà:_
+
+<figure className="flex flex-col w-full items-center">
+	<div style="height: 300px; width: 400px; position: relative; overflow: hidden;">
+		<img src="https://tile.osm.org/14/8801/5372.png" alt="" style="
+        position: absolute;
+        left: -17px;
+        top: -161px;" />
+		<img src="https://tile.osm.org/14/8802/5372.png" alt="" style="
+        position: absolute;
+        left: 239px;
+        top: -161px;" />
+		<img src="https://tile.osm.org/14/8801/5373.png" alt="" style="
+        position: absolute;
+        left: -17px;
+        top: 95px;" />
+		<img src="https://tile.osm.org/14/8802/5373.png" alt="" style="
+        position: absolute;
+        left: 239px;
+        top: 95px;" />
+			{/* prettier-ignore */}
+			<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+
+    </div>
+
+    <figcaption className="text-center">
+    	Map of Berlin
+    </figcaption>
+
+</figure>
+
+In Part 2 (coming soon), we'll look at how to zoom in and out of our map.
 
 <hr />
 
 Footnotes:
 
-[^1]: We directly used the decimal degrees instead of degres, minutes, and seconds.
+[^1]: We directly used the decimal degrees instead of degrees, minutes, and seconds.
