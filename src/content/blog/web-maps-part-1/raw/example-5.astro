@@ -1,0 +1,18 @@
+---
+import { Code } from "astro:components";
+
+const code = `result = \`<div style="height: \${height}px; position: relative; overflow: hidden;">\`
+tileSize = 256
+
+for (let tileY = topLeftCornerTileY; tileY * tileSize < y0 + height; tileY++) {
+	for (let tileX = topLeftCornerTileX; tileX * tileSize < x0 + width; tileX++) {
+		result += \`<img src="https://tile.osm.org/14/\${tileX}/\${tileY}.png" 
+		style="position: absolute; left: \${tileX * tileSize - x0}px; top: \${tileY * tileSize - y0}px;"
+		alt="" />\`;
+	}
+}
+
+result += "</div>";`;
+---
+
+<Code code={code} lang="ts" />

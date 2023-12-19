@@ -1,9 +1,12 @@
 ---
-title: "Writing a map library from scratch - Part 1"
+title: "Writing a map library from scratch - Part 1: Basics"
 description: "Off the charts"
 pubDate: "Dec 18 2023"
 heroImage: "/blog-placeholder-2.jpg"
 ---
+
+import { Code } from "astro:components";
+import Example5 from "./raw/example-5.astro";
 
 One day, as I embarked on the journey to improve a website's performance, I stumbled upon this lighthouse report:
 
@@ -54,14 +57,14 @@ represent the earth globe on a flat surface. The amount of tiles is relative to 
 At zoom level 0, you only need one tile, which will look like this:
 
 <figure className="flex flex-col w-full items-center">
-	<div className="relative w-[256px] h-[256px]">
+	<div className="relative w-[128px] h-[128px] sm:w-[256px] sm:h-[256px]">
 		<img className="my-0" src="https://tile.osm.org/0/0/0.png" alt="A map of the world" />
 		<div
 			className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
 			style="font:11px sans-serif"
 		>
 			{/* prettier-ignore */}
-			<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+			<a href="https://osm.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>
 		</div>
 	</div>
 
@@ -79,21 +82,21 @@ On each higher zoom level, the amount of tiles quadruples.
 At zoom level 1, you need 4 tiles, which will look like this:
 
 <figure className="flex flex-col w-full items-center">
-		<div className="relative h-[512px] w-[512px] overflow-hidden">
+		<div className="relative h-[256px] w-[256px] sm:h-[512px] sm:w-[512px] overflow-hidden">
 			<div className="flex flex-wrap">
-				<img className="my-0" src="https://tile.osm.org/1/0/0.png" alt="A map showing north America" />
-				<img className="my-0" src="https://tile.osm.org/1/1/0.png" alt="A map showing north Africa, Europe, and Asia" />
-				<img className="my-0" src="https://tile.osm.org/1/0/1.png" alt="A map showing south America and Antarctica" />
-				<img className="my-0" src="https://tile.osm.org/1/1/1.png" alt="A map showing south Africa, Australia, and Antarctica" />
+				<img className="my-0 w-[128px] sm:w-auto" src="https://tile.osm.org/1/0/0.png" alt="A map showing north America" />
+				<img className="my-0 w-[128px] sm:w-auto" src="https://tile.osm.org/1/1/0.png" alt="A map showing north Africa, Europe, and Asia" />
+				<img className="my-0 w-[128px] sm:w-auto" src="https://tile.osm.org/1/0/1.png" alt="A map showing south America and Antarctica" />
+				<img className="my-0 w-[128px] sm:w-auto" src="https://tile.osm.org/1/1/1.png" alt="A map showing south Africa, Australia, and Antarctica" />
 			</div>
-			<div className="absolute right-[256px] top-0 h-[512px] border-r border-dashed border-black" />
-			<div className="absolute right-0 top-[256px] w-[512px] border-t border-dashed border-black" />
+			<div className="absolute right-[128px] sm:right-[256px] top-0 h-[256px] sm:h-[512px] border-r border-dashed border-black" />
+			<div className="absolute right-0 top-[128px] sm:top-[256px] w-[256px] sm:w-[512px] border-t border-dashed border-black" />
 			<div
 				className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
 				style="font:11px sans-serif"
 			>
 				{/* prettier-ignore */}
-				<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+				<a href="https://osm.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>
 			</div>
 		</div>
 
@@ -120,58 +123,71 @@ the x- and y-axis.
 Now begins the fun part. We need to use the Web Mercator Projection formula to convert our latitude/longitude
 coordinates (based on a globe) to x/y coordinates (based on a flat surface):
 
-```js
-x = axisSize * (longitude / 360 + 0.5);
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+  <Code
+    code={`x = axisSize * (longitude / 360 + 0.5);
 x = 4194304 * (13.4 / 360 + 0.5);
-x = 2253273.3155555557;
-```
+x = 2253273.3155555557;`}
+    lang="tsx"
+  />
+</div>
 
-{/* prettier-ignore */}
-```js
-y = (axisSize * (1 - Math.log(Math.tan(Math.PI * (0.25 + latitude / 360))) / Math.PI)) / 2;
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+  <Code
+    code={`y = (axisSize * (1 - Math.log(Math.tan(Math.PI * (0.25 + latitude / 360))) / Math.PI)) / 2;
 y = (4194304 * (1 - Math.log(Math.tan(Math.PI * (0.25 + 52.52 / 360))) / Math.PI)) / 2;
-y = 1375543.6427981234;
-```
+y = 1375543.6427981234;`}
+    lang="tsx"
+  />
+</div>
 
 _Note: The Web Mercator Projection only works for latitudes between 85°N to 85°S._
 
 Since we want to center our latitude/longitude coordinates in the middle of our container, we need to subtract half
 of the container size from our x/y coordinates:
 
-```js
-width = 400;
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		code={`width = 400;
 height = 300;
 
 x0 = Math.floor(x - width / 2);
 x0 = 2253073;
 
 y0 = Math.floor(y - height / 2);
-y0 = 1375393;
-```
+y0 = 1375393;`}
+lang="ts"
+/>
+
+</div>
 
 However, x0 and y0 are coordinates in pixels. We still need to convert them to tile coordinates,
 i.e. the matching number for the <code className="bg-gray-200">/z/x/y.png</code> params.
 To do this, we need to floor divide our x0 and y0 by 256:
 
-```js
-topLeftCornerTileX = Math.floor(x0 / 256);
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		code={`topLeftCornerTileX = Math.floor(x0 / 256);
 topLeftCornerTileX = 8801;
 
 topLeftCornerTileY = Math.floor(y0 / 256);
-topLeftCornerTileY = 5372;
-```
+topLeftCornerTileY = 5372;`}
+lang="ts"
+/>
+
+</div>
 
 Now, we know that we need to fetch the tile <code className="bg-gray-200">/14/8801/5372.png</code>, which is:
 
 <figure className="flex flex-col w-full items-center">
-	<div className="relative w-[256px] h-[256px]">
+	<div className="relative w-[128px] h-[128px] sm:w-[256px] sm:h-[256px]">
 		<img className="my-0" src="https://tile.osm.org/14/8801/5372.png" alt="A map of the world" />
 		<div
 			className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
 			style="font:11px sans-serif"
 		>
 			{/* prettier-ignore */}
-			<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
+			<a href="https://osm.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>
 		</div>
 	</div>
 
@@ -183,46 +199,41 @@ Now, we know that we need to fetch the tile <code className="bg-gray-200">/14/88
 
 This seems correct! Let's fill our container with the adjacent tiles and a bit of css to position it correctly:
 
-```js
-result = `<div style="height: ${height}px; position: relative; overflow: hidden;">`;
-tileSize = 256;
-
-for (let tileY = topLeftCornerTileY; tileY * tileSize < y0 + height; tileY++) {
-  for (let tileX = topLeftCornerTileX; tileX * tileSize < x0 + width; tileX++) {
-    result += `<img src="https://tile.osm.org/14/${tileX}/${tileY}.png" alt="" style="
-        position: absolute;
-        left: ${tileSize * 256 - x0}px;
-        top: ${tileSize * 256 - y0}px;">`;
-  }
-}
-
-result += "</div>";
-```
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Example5 />
+</div>
 
 _Et voilà:_
 
-<figure className="flex flex-col w-full items-center">
-	<div style="height: 300px; width: 400px; position: relative; overflow: hidden;">
-		<img src="https://tile.osm.org/14/8801/5372.png" alt="" style="
-        position: absolute;
-        left: -17px;
-        top: -161px;" />
-		<img src="https://tile.osm.org/14/8802/5372.png" alt="" style="
-        position: absolute;
-        left: 239px;
-        top: -161px;" />
-		<img src="https://tile.osm.org/14/8801/5373.png" alt="" style="
-        position: absolute;
-        left: -17px;
-        top: 95px;" />
-		<img src="https://tile.osm.org/14/8802/5373.png" alt="" style="
-        position: absolute;
-        left: 239px;
-        top: 95px;" />
-			{/* prettier-ignore */}
-			<a href="https://osm.org/copyright">&copy; OpenStreetMap contributors</a>
-
-    </div>
+<figure className="flex flex-col w-72 sm:w-full items-center">
+	<div className="scale-[0.65] sm:scale-100">
+		<div className="h-[300px] w-[400px] relative overflow-hidden -mb-16 sm:mb-0 -mt-16 sm:mt-0">
+			<img src="https://tile.osm.org/14/8801/5372.png" alt="" style="
+					position: absolute;
+					left: -17px;
+					top: -161px;" />
+			<img src="https://tile.osm.org/14/8802/5372.png" alt="" style="
+					position: absolute;
+					left: 239px;
+					top: -161px;" />
+			<img src="https://tile.osm.org/14/8801/5373.png" alt="" style="
+					position: absolute;
+					left: -17px;
+					top: 95px;" />
+			<img src="https://tile.osm.org/14/8802/5373.png" alt="" style="
+					position: absolute;
+					left: 239px;
+					top: 95px;" />
+				{/* prettier-ignore */}
+			<div
+				className="absolute bottom-0 right-0 bg-white bg-opacity-50 px-0.5 py-1 text-xs"
+				style="font:11px sans-serif"
+			>
+				{/* prettier-ignore */}
+				<a href="https://osm.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>
+			</div>
+		</div>
+	</div>
 
     <figcaption className="text-center">
     	Map of Berlin
