@@ -1,0 +1,41 @@
+---
+title: "Writing a map library from scratch - Part 2: Zooming"
+description: "We’ve got some serious projection issues / okay, zoomer / zoom zoom"
+pubDate: "Dec 27 2023"
+heroImage: "/blog-placeholder-4.jpg"
+---
+
+_If you haven't read <a href="/blog/web-maps-part-1" target="_blank">Part 1</a> yet,
+I recommend you do so before continuing._
+
+<hr />
+
+In the previous article, we created a static map made up by tiles on a specific zoom level.
+But how do we make it interactive?
+
+## Interactivity
+
+In essence, zooming (or panning) on a map is just a manipulation of the map center and the zoom level.
+If you can figure out what the new zoom level and the new map center will be after an interaction,
+you just need to re-render the map with the these values.
+
+## Zooming
+
+Zooming towards the center of the container is fairly simple.
+We just need to change the zoom level and re-render the map, as the center does not change.
+However, zooming towards or away from the mouse cursor is a bit more complicated.
+We need to calculate the new map center based on the mouse position.
+
+### Zooming towards mouse cursor
+
+When you zoom towards the mouse cursor, the new center of the map will be at midpoint
+between the mouse cursor and the old center.
+
+`animation`
+
+### Zooming away from mouse cursor
+
+When you zoom away from the mouse cursor, it's the other way around.
+The mouse cursor is now the midpoint between the old center and the new center.
+
+`animation`
