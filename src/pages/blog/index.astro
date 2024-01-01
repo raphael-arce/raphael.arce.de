@@ -25,7 +25,7 @@ const posts = (await getCollection("blog")).sort(
         <h1 class="pb-6 pt-5 text-2xl font-bold sm:text-3xl">Blog Articles</h1>
         <ul class="flex flex-wrap justify-between gap-8">
           {
-            posts.map((post) => (
+            posts.map((post, index) => (
               <li class="w-full text-start first:w-full md:w-[19.5rem] first:md:text-center">
                 <a
                   class="group transition ease-in hover:text-blue-700"
@@ -43,7 +43,13 @@ const posts = (await getCollection("blog")).sort(
                       {post.data.description}
                     </div>
                   </div>
-                  <h2 class="mt-4 text-2xl font-bold sm:text-3xl">
+                  <h2
+                    class={`${
+                      index === 0
+                        ? "text-2xl sm:text-3xl"
+                        : "text-xl sm:text-2xl"
+                    } mt-4 font-bold`}
+                  >
                     {post.data.title}
                   </h2>
                   <p class="text-slate-500 transition ease-in group-hover:text-blue-700">
