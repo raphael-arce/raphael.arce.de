@@ -2,7 +2,7 @@ import useMapStore from "./store.ts";
 import { getTiles } from "./utils/tiles.ts";
 import { handleZoomIn, handleZoomOut } from "./utils/zoom.ts";
 import { useRef } from "react";
-import { useMapResizeObserver } from "./useSizeObserver.ts";
+import { useMapResizeObserver } from "./useMapResizeObserver.ts";
 
 let timeoutId: number;
 
@@ -11,7 +11,7 @@ export default function ZoomMap() {
   const mapRef = useRef<HTMLDivElement>(null);
   const tiles = getTiles(mapStore);
 
-  useMapResizeObserver(mapRef, mapStore);
+  useMapResizeObserver(mapRef);
 
   return (
     <div className="not-prose">

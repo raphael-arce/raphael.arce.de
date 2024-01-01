@@ -1,23 +1,21 @@
 import React, { useEffect } from "react";
-import { type Map } from "./store.ts";
+import useMapStore, { type Map } from "./store.ts";
 
-export function useMapResizeObserver(
-  mapRef: React.RefObject<HTMLDivElement>,
-  mapStore: Map,
-) {
+export function useMapResizeObserver(mapRef: React.RefObject<HTMLDivElement>) {
   useEffect(() => {
     if (!mapRef.current) {
       return;
     }
 
     const resizeObserver = new ResizeObserver(([mapElement]) => {
+      const oldWidth = useMapStore.getState().width;
       const newWidth = Math.round(mapElement.contentRect.width);
 
-      if (mapStore.width === newWidth) {
+      if (oldWidth === newWidth) {
         return;
       }
 
-      mapStore.setWidth(newWidth);
+      useMapStore.getState().setWidth(newWidth);
     });
 
     resizeObserver.observe(mapRef.current);
