@@ -82,7 +82,7 @@ up from the center.
 
 So the cartesian coordinates of the new center are:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
 	<Code
 		className="bg-gray-200"
 		code={`x = 2253273.3155555557 - 50;
@@ -96,7 +96,7 @@ y = 1375518.6427981234;`}
 
 Now, we need to use the web mercator projection to convert these cartesian coordinates to geographic coordinates.
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
   <Example1 />
 </div>
 
@@ -108,7 +108,7 @@ the new center. Which means, with the same values, old center at <code className
 cursor at <code className="bg-gray-200">(100, 100)</code>, the new center would be at <code className="bg-gray-200">(300, 200)</code>.
 In cartesian coordinates, that would be:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
 	<Code
 		className="bg-gray-200"
 		code={`x = 2253273.3155555557 + 100;
@@ -122,7 +122,7 @@ y = 1375593.6427981234;`}
 
 In geographic coordinates:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
 	<Example2 />
 </div>
 
@@ -132,7 +132,6 @@ double click/double tap to zoom out:
 <figure>
 
 	<ZoomMap client:load/>
-
 
 	<figcaption className="text-center">
 		Zoomable Map of Berlin

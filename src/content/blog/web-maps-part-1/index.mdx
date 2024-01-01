@@ -123,7 +123,7 @@ on the x- and y-axis.
 Now begins the fun part. We need to use the Web Mercator Projection formula to convert our latitude/longitude
 coordinates (based on a globe) to x/y coordinates (based on a flat surface):
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
   <Code
     code={`x = axisSize * (longitude / 360 + 0.5);
 x = 4194304 * (13.4 / 360 + 0.5);
@@ -132,7 +132,7 @@ x = 2253273.3155555557;`}
   />
 </div>
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
   <Code
     code={`y = (axisSize * (1 - Math.log(Math.tan(Math.PI * (0.25 + latitude / 360))) / Math.PI)) / 2;
 y = (4194304 * (1 - Math.log(Math.tan(Math.PI * (0.25 + 52.52 / 360))) / Math.PI)) / 2;
@@ -146,7 +146,7 @@ _Note: The Web Mercator Projection only works for latitudes between 85Â°N to 85Â
 Since we want to center our latitude/longitude coordinates in the middle of our container, we need to subtract half
 of the container size from our x/y coordinates:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
 	<Code
 		code={`width = 400;
 height = 300;
@@ -165,7 +165,7 @@ However, x0 and y0 are coordinates in pixels. We still need to convert them to t
 i.e. the matching number for the <code className="bg-gray-200">/z/x/y.png</code> parameters.
 To do this, we need to floor divide our x0 and y0 by 256:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
 	<Code
 		code={`topLeftCornerTileX = Math.floor(x0 / 256);
 topLeftCornerTileX = 8801;
@@ -199,7 +199,7 @@ Now, we know that we need to fetch the tile <code className="bg-gray-200">/14/88
 
 This seems correct! Let's fill our container with the adjacent tiles and a bit of css to position it correctly:
 
-<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+<div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
   <Example5 />
 </div>
 
