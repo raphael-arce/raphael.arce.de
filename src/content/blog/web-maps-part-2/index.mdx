@@ -1,9 +1,14 @@
 ---
 title: "Writing a map library from scratch - Part 2: Zooming"
-description: "We’ve got some serious projection issues / okay, zoomer / zoom zoom"
-pubDate: "Dec 27 2023"
+description: "Zoom zoom"
+pubDate: "Jan 1 2024"
 heroImage: "/blog-placeholder-4.jpg"
 ---
+
+import { Code } from "astro:components";
+import Example1 from "./raw/example-1.astro";
+import Example2 from "./raw/example-2.astro";
+import ZoomMap from "./example/zoom-map.tsx";
 
 _If you haven't read <a href="/blog/web-maps-part-1" target="_blank">Part 1</a> yet,
 I recommend you do so before continuing._
@@ -31,11 +36,106 @@ We need to calculate the new map center based on the mouse position.
 When you zoom towards the mouse cursor, the new center of the map will be at midpoint
 between the mouse cursor and the old center.
 
-`animation`
+<figure>
+	<video controls className="mx-auto">
+		<source src="/zoom-in.webm" type="video/webm" />
+	</video>
+
+	<figcaption className="text-center">Zoom In Demo</figcaption>
+</figure>
 
 ### Zooming away from mouse cursor
 
 When you zoom away from the mouse cursor, it's the other way around.
-The mouse cursor is now the midpoint between the old center and the new center.
+The old center is located at the midpoint between mouse cursor and the new center.
 
-`animation`
+<figure>
+	<video controls className="mx-auto">
+		<source src="/zoom-out.webm" type="video/webm" />
+	</video>
+
+	<figcaption className="text-center">Zoom Out Demo</figcaption>
+</figure>
+
+
+### How do we calculate the new center?
+
+If we zoom in, we need to calculate the midpoint between the mouse cursor and the center.
+We will calculate the distance in pixels.
+Let us take the same map from part 1:
+
+- The center is:<code className="bg-gray-200">(13.4, 52.52)</code>.
+- The zoom level is <code className="bg-gray-200">14</code>.
+- One tile is <code className="bg-gray-200">256</code> pixels wide and high.
+- The map is inside a container of <code className="bg-gray-200">400</code> pixels width
+  and <code className="bg-gray-200">300</code> pixels height.
+- The center of the container is at <code className="bg-gray-200">(200, 150)</code>.
+
+Using the Web Mercator Projection, these geo-coordinates (on a globe) can be converted
+to <code className="bg-gray-200">(2253273.3155555557, 1375543.6427981234)</code> in
+cartesian coordinates (on a flat surface). Let's say the mouse
+cursor is at <code className="bg-gray-200">(100, 100)</code> inside the container, and we want to zoom
+in by <code className="bg-gray-200">1</code> level (to zoom level <code className="bg-gray-200">15</code>).
+The midpoint between the mouse cursor at <code className="bg-gray-200">(150, 125)</code>, which
+is <code className="bg-gray-200">50</code> pixels to the left and <code className="bg-gray-200">25</code> pixels
+up from the center.
+
+So the cartesian coordinates of the new center are:
+
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		className="bg-gray-200"
+		code={`x = 2253273.3155555557 - 50;
+x = 2253223.3155555557;
+
+y = 1375543.6427981234 - 25;
+y = 1375518.6427981234;`}
+		lang={"ts"}
+	/>
+</div>
+
+Now, we need to use the web mercator projection to convert these cartesian coordinates to geographic coordinates.
+
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+  <Example1 />
+</div>
+
+And that's it! If we plug those values back into the algorithm
+from <a href="/blog/web-maps-part-1" target="_blank">Part 1</a>, we found a way to zoom in!
+
+How do we zoom out? Well, we just need to use the old center as the midpoint between the mouse cursor and
+the new center. Which means, with the same values, old center at <code className="bg-gray-200">(200, 150)</code>, mouse
+cursor at <code className="bg-gray-200">(100, 100)</code>, the new center would be at <code className="bg-gray-200">(300, 200)</code>.
+In cartesian coordinates, that would be:
+
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		className="bg-gray-200"
+		code={`x = 2253273.3155555557 + 100;
+x = 2253373.3155555557;
+
+y = 1375543.6427981234 + 50;
+y = 1375593.6427981234;`}
+		lang={"ts"}
+	/>
+</div>
+
+In geographic coordinates:
+
+<div className="w-72 2xs:w-96 xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Example2 />
+</div>
+
+And that's it! We can now zoom in and out on the map! Here is a working example, click/tap to zoom in,
+double click/double tap to zoom out:
+
+<figure>
+	<ZoomMap client:load/>
+
+	<figcaption className="text-center">
+		Zoomable Map of Berlin
+	</figcaption>
+</figure>
+
+In Part 3 (coming soon), we will look at how panning works.
+
