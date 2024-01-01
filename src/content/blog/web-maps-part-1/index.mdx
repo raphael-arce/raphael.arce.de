@@ -116,9 +116,9 @@ Now, we need to figure out which tiles, using the <code className="bg-gray-200">
 
 On zoom level 14, the world is divided into <code className="bg-gray-200">2<sup>14</sup> = 16,384</code> x- and y-tiles.
 
-Knowing that one tile has a size of 256 pixels, we can calculate the size of each axis: <code className="bg-gray-200">axisSize = 16,384 ⋅ 256 = 4,194,304</code>
-pixels on
-the x- and y-axis.
+Knowing that one tile has a size of 256 pixels, we can calculate the size of each
+axis: <code className="bg-gray-200">axisSize = 16,384 ⋅ 256 = 4,194,304</code> pixels
+on the x- and y-axis.
 
 Now begins the fun part. We need to use the Web Mercator Projection formula to convert our latitude/longitude
 coordinates (based on a globe) to x/y coordinates (based on a flat surface):
