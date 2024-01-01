@@ -1,6 +1,6 @@
 import React from "react";
-import useMapStore, { type Map } from "./store.ts";
-import type { LatLon, Point } from "./types.ts";
+import useMapStore, { type Map } from "../store.ts";
+import type { LatLon, Point } from "../types.ts";
 import { WebMercator } from "./web-mercator.ts";
 
 export function handleZoomIn(e: React.MouseEvent<HTMLDivElement>, map: Map) {

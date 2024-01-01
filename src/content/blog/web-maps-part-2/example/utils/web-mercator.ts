@@ -1,4 +1,4 @@
-import type { LatLon, Point } from "./types.ts";
+import type { LatLon, Point } from "../types.ts";
 
 export const WebMercator = {
   MAX_LATITUDE: 85.0511287798,
