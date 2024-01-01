@@ -1,0 +1,13 @@
+---
+import { Code } from "astro:components";
+
+const code = `axisSize = 4194304 // 256*2^14
+
+lng = 360 * (x0 / axisSize - 0.5);
+lng = 13.417166137695329;
+lat = 360 * (Math.atan(Math.exp(Math.PI * (1 - (2 * y0) / axisSize))) / Math.PI - 0.25);
+lat = 52.50955343022076 ;
+`;
+---
+
+<Code code={code} lang="ts" />

@@ -1,0 +1,106 @@
+---
+title: "Writing a map library from scratch - Part 3: Panning"
+description: "Pan pan"
+pubDate: "Jan 2 2024"
+heroImage: "/blog-placeholder-5.jpg"
+---
+
+import { Code } from "astro:components";
+import Example1 from "./raw/example-1.astro";
+import PanMap from "./example/pan-map.tsx";
+
+_If you haven't read <a href="/blog/web-maps-part-1" target="_blank">Part 1</a> and <a href="/blog/web-maps-part-2" target="_blank">Part 2</a> yet,
+I recommend you do so before continuing._
+
+<hr />
+
+In the previous article, we implemented zooming. Now, we'll look at panning. How does it work?
+
+## Panning
+
+In a nutshell, panning is when you click and drag the map to move it around. It's pretty straight forward:
+you just need to calculate the difference between the cursor position when the click/tap starts and when you release it,
+then move the map center by that amount.
+
+<figure>
+	<video controls className="mx-auto">
+		<source src="/pan.webm" type="video/webm" />
+	</video>
+
+	<figcaption className="text-center">Panning Demo</figcaption>
+</figure>
+
+### Calculating the difference
+
+Let us have the center at (x0, y0) and the cursor position at (x1, y1), where also the panning starts.
+The panning ends at (x2, y2). The new center will then be at:
+
+<div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		className="bg-gray-200"
+		code={`x0 = x0 + (x2 - x1);
+y0 = y0 + (y2 - y1);`}
+		lang={"ts"}
+	/>
+</div>
+
+## Example
+
+Let us take the same map from the previous articles:
+
+- The center is:<code className="bg-gray-200">(13.4, 52.52)</code>.
+- The zoom level is <code className="bg-gray-200">14</code>.
+- One tile is <code className="bg-gray-200">256</code> pixels wide and high.
+- The map is inside a container of <code className="bg-gray-200">400</code> pixels width
+and <code className="bg-gray-200">300</code> pixels height.
+- The center of the container is at <code className="bg-gray-200">(200, 150)</code>.
+
+Using the Web Mercator Projection, these geo-coordinates (on a globe) can be converted
+to <code className="bg-gray-200">(2253273.3155555557, 1375543.6427981234)</code> in
+cartesian coordinates (on a flat surface). Let's say the mouse
+cursor is at <code className="bg-gray-200">(100, 150)</code> inside the container, and we move the cursor while
+clicking/tapping to <code className="bg-gray-200">(300, 350)</code>. Using our formula, the new cartesian center will be:
+
+<div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		code={`x0 = 200 + (300 - 100);
+x0 = 400;
+
+y0 = 150 + (350 - 150);
+y0 = 350`}
+		lang={"ts"}
+	/>
+</div>
+
+So the cartesian coordinates of the new center are:
+
+<div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Code
+		code={`x0 = 2253273.3155555557 + (300 - 100);
+x0 = 2253473.3155555557;
+
+y0 = 1375543.6427981234 + (350 - 150);
+y0 = 1375743.6427981234;`}
+		lang={"ts"}
+	/>
+</div>
+
+And just like before, we need to use the web mercator projection to convert these
+cartesian coordinates to geographic coordinates.
+
+<div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
+	<Example1 />
+</div>
+
+If we plug those values back into the algorithm
+from <a href="/blog/web-maps-part-1" target="_blank">Part 1</a>, we can pan (click/tap and drag the map):
+
+<figure>
+
+	<PanMap client:load/>
+
+	<figcaption className="text-center">
+		Panning Map of Berlin
+		(<a href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/web-maps-part-2/example" target="_blank">Source</a>)
+	</figcaption>
+</figure>
