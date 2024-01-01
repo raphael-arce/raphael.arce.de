@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useMapStore, { type Map } from "./store.ts";
+import useMapStore from "./store.ts";
 
 export function useMapResizeObserver(mapRef: React.RefObject<HTMLDivElement>) {
   useEffect(() => {
