@@ -37,11 +37,12 @@ When you zoom towards the mouse cursor, the new center of the map will be at mid
 between the mouse cursor and the old center.
 
 <figure>
-	<video controls className="mx-auto">
-		<source src="/zoom-in.webm" type="video/webm" />
+	<video controls className="mx-auto" playsInline={true}>
+		<source src="/zoom-in.mp4" type="video/mp4" />
 	</video>
 
-	<figcaption className="text-center">Zoom In Demo</figcaption>
+    <figcaption className="text-center">Zoom In Demo</figcaption>
+
 </figure>
 
 ### Zooming away from mouse cursor
@@ -50,13 +51,13 @@ When you zoom away from the mouse cursor, it's the other way around.
 The old center is located at the midpoint between mouse cursor and the new center.
 
 <figure>
-	<video controls className="mx-auto">
-		<source src="/zoom-out.webm" type="video/webm" />
+	<video controls className="mx-auto" playsInline={true}>
+		<source src="/zoom-out.mp4" type="video/mp4" />
 	</video>
 
-	<figcaption className="text-center">Zoom Out Demo</figcaption>
-</figure>
+    <figcaption className="text-center">Zoom Out Demo</figcaption>
 
+</figure>
 
 ### How do we calculate the new center?
 
@@ -90,8 +91,9 @@ x = 2253223.3155555557;
 
 y = 1375543.6427981234 - 25;
 y = 1375518.6427981234;`}
-		lang={"ts"}
-	/>
+lang={"ts"}
+/>
+
 </div>
 
 Now, we need to use the web mercator projection to convert these cartesian coordinates to geographic coordinates.
@@ -116,14 +118,15 @@ x = 2253373.3155555557;
 
 y = 1375543.6427981234 + 50;
 y = 1375593.6427981234;`}
-		lang={"ts"}
-	/>
+lang={"ts"}
+/>
+
 </div>
 
 In geographic coordinates:
 
 <div className="w-72 2xs:w-[20rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
-	<Example2 />
+  <Example2 />
 </div>
 
 And that's it! We can now zoom in and out on the map! Here is a working example, click/tap to zoom in,
@@ -131,13 +134,13 @@ double click/double tap to zoom out:
 
 <figure>
 
-	<ZoomMap client:load/>
+    <ZoomMap client:load/>
 
-	<figcaption className="text-center">
-		Zoomable Map of Berlin
-		(<a href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/web-maps-part-2/example" target="_blank">Source</a>)
-	</figcaption>
+    <figcaption className="text-center">
+    	Zoomable Map of Berlin
+    	(<a href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/web-maps-part-2/example" target="_blank">Source</a>)
+    </figcaption>
+
 </figure>
 
-In Part 3 (coming soon), we will look at how panning works.
-
+In <a href="/blog/web-maps-part-3/" target="_blank">Part 3</a>, we will look at how panning works.

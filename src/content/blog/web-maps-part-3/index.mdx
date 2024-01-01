@@ -23,11 +23,12 @@ you just need to calculate the difference between the cursor position when the c
 then move the map center by that amount.
 
 <figure>
-	<video controls className="mx-auto">
-		<source src="/pan.webm" type="video/webm" />
+	<video controls className="mx-auto" playsInline={true}>
+		<source src="/pan.mp4" type="video/mp4"/>
 	</video>
 
-	<figcaption className="text-center">Panning Demo</figcaption>
+    <figcaption className="text-center">Panning Demo</figcaption>
+
 </figure>
 
 ### Calculating the difference
@@ -36,12 +37,12 @@ Let us have the center at (x0, y0) and the cursor position at (x1, y1), where al
 The panning ends at (x2, y2). The new center will then be at:
 
 <div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
-	<Code
-		className="bg-gray-200"
-		code={`x0 = x0 + (x2 - x1);
+  <Code
+    className="bg-gray-200"
+    code={`x0 = x0 + (x2 - x1);
 y0 = y0 + (y2 - y1);`}
-		lang={"ts"}
-	/>
+    lang={"ts"}
+  />
 </div>
 
 ## Example
@@ -52,7 +53,7 @@ Let us take the same map from the previous articles:
 - The zoom level is <code className="bg-gray-200">14</code>.
 - One tile is <code className="bg-gray-200">256</code> pixels wide and high.
 - The map is inside a container of <code className="bg-gray-200">400</code> pixels width
-and <code className="bg-gray-200">300</code> pixels height.
+  and <code className="bg-gray-200">300</code> pixels height.
 - The center of the container is at <code className="bg-gray-200">(200, 150)</code>.
 
 Using the Web Mercator Projection, these geo-coordinates (on a globe) can be converted
@@ -68,8 +69,9 @@ x0 = 400;
 
 y0 = 150 + (350 - 150);
 y0 = 350`}
-		lang={"ts"}
-	/>
+lang={"ts"}
+/>
+
 </div>
 
 So the cartesian coordinates of the new center are:
@@ -81,15 +83,16 @@ x0 = 2253473.3155555557;
 
 y0 = 1375543.6427981234 + (350 - 150);
 y0 = 1375743.6427981234;`}
-		lang={"ts"}
-	/>
+lang={"ts"}
+/>
+
 </div>
 
 And just like before, we need to use the web mercator projection to convert these
 cartesian coordinates to geographic coordinates.
 
 <div className="w-72 2xs:w-[21rem] xs:w-[26rem] sm:w-[30rem] md:w-auto">
-	<Example1 />
+  <Example1 />
 </div>
 
 If we plug those values back into the algorithm
@@ -97,10 +100,11 @@ from <a href="/blog/web-maps-part-1" target="_blank">Part 1</a>, we can pan (cli
 
 <figure>
 
-	<PanMap client:load/>
+    <PanMap client:load/>
 
-	<figcaption className="text-center">
-		Panning Map of Berlin
-		(<a href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/web-maps-part-3/example" target="_blank">Source</a>)
-	</figcaption>
+    <figcaption className="text-center">
+    	Panning Map of Berlin
+    	(<a href="https://github.com/raphael-arce/raphael-arce.github.io/tree/main/src/content/blog/web-maps-part-3/example" target="_blank">Source</a>)
+    </figcaption>
+
 </figure>
