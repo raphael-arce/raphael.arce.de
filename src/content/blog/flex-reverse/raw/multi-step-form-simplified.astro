@@ -1,0 +1,34 @@
+---
+import { Code } from "astro:components";
+---
+
+<Code
+  code={`function MultiStepForm() {
+	
+  return (
+    <form onSubmit={/*...*/}>
+      <p>Is the ocean blue?</p>
+      
+      <input
+        type="radio"
+        value={"Yes"}
+      />
+      <label>Yes</label>
+      
+      <input
+        type="radio"
+        value={"No"}
+      />
+      <label>No</label>
+      
+      <div className="flex justify-between">
+        <button type="button">Previous</button>
+        
+        <button type="submit">Next</button>
+      </div>
+    </form>
+  );
+}`}
+  lang="tsx"
+  wrap
+/>

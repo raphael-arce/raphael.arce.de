@@ -1,0 +1,109 @@
+---
+title: "Flex Reverse"
+description: "Such a flex"
+pubDate: "Feb 26 2024"
+heroImage: "/blog-placeholder-3.jpg"
+---
+
+import MultiStepForm from "./components/multi-step-form.tsx";
+import MultiStepFormReverse from "./components/multi-step-form-reverse.tsx";
+import MultiStepFormSimplified from "./raw/multi-step-form-simplified.astro";
+import MultiStepFormReverseSimplified from "./raw/multi-step-form-reverse-simplified.astro";
+
+When I started learning CSS, I stumbled across the
+property <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#row-reverse" target="_blank">flex-direction: row-reverse</a> and
+wondered when would you ever use that. Some argue that you can use it for languages that are read from right to left.
+I think that is not necessarily a good approach, as browsers can handle that for you with
+the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir" target="_blank">dir</a> attribute.
+
+So when would you want to reverse the rendered order of your flex items, but not the order in the source code?
+
+## The Problem
+
+Imagine you have a multistep form with next and previous buttons:
+
+<div className="pb-6">
+  <MultiStepForm client:load />
+</div>
+
+<details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
+  {/* prettier-ignore */}
+  <summary className="collapse-title font-medium">Multi-Step-Form simplified code</summary>
+  <div className="collapse-content mx-auto w-72 2xs:w-[20rem] xs:w-auto">
+    <MultiStepFormSimplified />
+  </div>
+</details>
+
+If you are using the <kbd class="kbd">Tab</kbd> key (or a screen-reader) to navigate through the form, you will notice
+that you'll focus the <code className="bg-gray-200">Previous</code> button before
+the <code className="bg-gray-200">Next</code> button, because they are defined in that order in the source code.
+
+<figure className="mx-auto">
+  <div className="flex flex-col items-center">
+    <img
+      src="/flex.png"
+      alt="Form with buttons displayed with the flex-direction: row property"
+      className="not-prose w-[26rem]"
+    />
+    <video controls className="not-prose w-[28rem]" playsInline={true}>
+      <source src="/flex.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <figcaption className="text-center">
+    Form with <code className="bg-gray-200">flex-direction: row</code> buttons
+  </figcaption>
+</figure>
+
+However, while it makes sense from a continuity flow to have the <code className="bg-gray-200">previous</code> button on
+the left and the <code className="bg-gray-200">next</code> button on the right, it doesn't make sense for keyboard
+navigation. When you <kbd class="kbd">Tab</kbd> after you choose an option, you most likely want to go to the
+next step, not the previous one.
+
+<figure>
+  <img
+    src="/flex-reverse.png"
+    alt="Form with buttons displayed with the flex-direction: row property"
+    className="w-[26rem] mx-auto"
+  />
+
+  <figcaption className="text-center">
+    Form with improved keyboard navigation
+  </figcaption>
+</figure>
+
+## The Solution
+
+This is where <code className="bg-gray-200">flex-direction: row-reverse</code> comes into play. By defining the buttons
+in the order:
+
+1. <code className="bg-gray-200">next</code>
+2. <code className="bg-gray-200">previous</code>
+
+_and_ then reversing the order with said property, we'll keep the continuity flow but
+also allow the <code className="bg-gray-200">next</code> button to be focused
+first after choosing an option. Et voilà:
+
+<div className="pb-6">
+  <MultiStepFormReverse client:load />
+</div>
+
+<details className="group collapse collapse-plus bg-gray-200 hover:bg-gray-300">
+  {/* prettier-ignore */}
+  <summary className="collapse-title font-medium">Multi-Step-Form simplified code</summary>
+  <div className="collapse-content mx-auto w-72 2xs:w-[20rem] xs:w-auto">
+    <MultiStepFormReverseSimplified />
+  </div>
+</details>
+
+<figure>
+	<video controls className="mx-auto w-[28rem]" playsInline={true}>
+		<source src="/flex-reverse.mp4" type="video/mp4" />
+	</video>
+
+  <figcaption className="text-center">
+    Form with <code className="bg-gray-200">flex-direction: row-reverse</code>{" "}
+    buttons
+  </figcaption>
+</figure>
+
+<hr />
