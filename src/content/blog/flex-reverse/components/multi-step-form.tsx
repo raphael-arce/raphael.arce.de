@@ -30,7 +30,7 @@ export default function MultiStepForm() {
   }
 
   return (
-    <div className="prose-none card mx-auto w-96 bg-base-100 drop-shadow-xl">
+    <div className="prose-none card mx-auto w-72 bg-base-100 drop-shadow-xl md:w-80 lg:w-96">
       <div className="card-body">
         <form
           onSubmit={(e) => {
