@@ -57,21 +57,21 @@ export const experiences = [
         previewLink: "https://www.acker.co/",
         linkLabel: "acker.co",
         description:
-          ", a new website as part of a brand relaunch with subpages for each program. ",
+          ", a new website as part of a brand relaunch with subpages for each program.",
         githubLink: "",
       },
       {
         previewLink: "https://mein.acker.co/",
         linkLabel: "mein.acker.co",
         description:
-          ", an educational platform with personalized content for educators to enhance their curriculum with Acker's programs. ",
+          ", an educational platform with personalized content for educators to enhance their curriculum with Acker's programs.",
         githubLink: "",
       },
       {
         previewLink: "https://apps.apple.com/de/app/ackerpause/id1515122523",
         linkLabel: "Ackerpause",
         description:
-          ", an educational platform with personalized content for educators to enhance their curriculum with Acker's programs. ",
+          ", a mobile app to help people to take care of the vegetables they're growing.",
         githubLink: "",
       },
     ],

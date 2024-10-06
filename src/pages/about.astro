@@ -38,7 +38,7 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
         </div>
 
         <div
-          class="flex max-w-[720px] flex-col justify-center gap-6 rounded border bg-white px-8 py-4"
+          class="flex max-w-[725px] flex-col justify-center gap-6 rounded border bg-white px-8 py-4"
         >
           <section>
             <div class="flex w-full flex-col gap-4 sm:flex-row">
@@ -85,14 +85,14 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
                   <div class="flex flex-col gap-3">
                     <p>
                       <span class="font-semibold">{experience.title}</span> @
+                      <!-- prettier-ignore -->
                       <a
                         href={experience.link}
                         target="_blank"
                         class="text-blue-600 underline visited:text-purple-500"
-                      >
-                        {experience.company}
-                      </a>{" "}
-                      <span class="font-light italic text-slate-400">
+                      >{experience.company}</a>
+
+                      <span class="font-light italic text-slate-400 whitespace-nowrap">
                         {experience.date}
                       </span>
                     </p>
@@ -103,14 +103,15 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
                       <ul class="flex flex-col gap-2">
                         {experience.products.map((product) => (
                           <li class="list-inside list-disc">
+                            <!-- prettier-ignore -->
                             <a
                               href={product.previewLink}
                               target="_blank"
                               class="text-blue-600 underline visited:text-purple-500"
-                            >
-                              {product.linkLabel}
-                            </a>
-                            <Fragment set:html={product.description} />{" "}
+                            >{product.linkLabel}</a><Fragment set:html={product.description} />
+
+                            {" "}
+
                             {product.githubLink && (
                               <a
                                 href={product.githubLink}
@@ -139,13 +140,14 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
                   <li>
                     <span class="font-semibold">{degree.degree}</span>{" "}
                     <span class="italic"> {degree.program}</span> @
+
+                    <!-- prettier-ignore -->
                     <a
                       href={degree.link}
                       target="_blank"
                       class="text-blue-600 underline visited:text-purple-500"
-                    >
-                      {degree.institution}
-                    </a>{" "}
+                    >{degree.institution}</a>{" "}
+
                     <span class="pl-2 font-light italic text-slate-400">
                       {degree.date}
                     </span>
