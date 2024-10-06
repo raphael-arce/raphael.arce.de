@@ -3,6 +3,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_DESCRIPTION } from "../consts";
+import { degrees, experiences } from "../content/about";
 
 const yearsOfExperience = new Date().getFullYear() - 2019;
 ---
@@ -17,7 +18,7 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
       class="flex w-full grow justify-center bg-gradient-to-b from-slate-100 to-white px-2 py-2"
     >
       <div class="relative">
-        <div class="absolute right-2.5 top-3.5">
+        <div class="absolute right-7 top-10">
           <div class="flex gap-2">
             <a href="https://github.com/raphael-arce" target="_blank"
               ><img
@@ -37,7 +38,7 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
         </div>
 
         <div
-          class="flex max-w-[720px] flex-col justify-center rounded border bg-white px-8 py-4"
+          class="flex max-w-[720px] flex-col justify-center gap-6 rounded border bg-white px-8 py-4"
         >
           <section>
             <div class="flex w-full flex-col gap-4 sm:flex-row">
@@ -47,7 +48,7 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
                 alt="A picture of Raphael Arce"
               />
 
-              <div class="flex w-full flex-col gap-1">
+              <div class="flex w-full flex-col gap-1 sm:pt-4">
                 <h1 class="-mt-1 text-2xl">Raphael Arce</h1>
 
                 <h2 class="flex items-start gap-1 sm:items-center">
@@ -56,189 +57,102 @@ const yearsOfExperience = new Date().getFullYear() - 2019;
                   >
                   {yearsOfExperience} years of experience
                 </h2>
-                <h3 class="pt-4">
-                  Interested in
-                  <span class="font-semibold">Frontend</span>
-                   and
-                  <span class="font-semibold"> Full-Stack</span>
-                   development.
-                </h3>
               </div>
             </div>
 
             <div
               class="flex w-full flex-col justify-start gap-1 pt-6 sm:flex-row sm:gap-4"
             >
-              <div class="flex sm:w-20 sm:justify-end">
+              <div class="flex flex-none sm:w-20 sm:justify-end">
                 <h4 class="text-slate-400">About</h4>
               </div>
-              <p>Software Engineer who is passionate about Web Performance.</p>
-            </div>
-          </section>
-          <section>
-            <div
-              class="flex w-full flex-col justify-start gap-1 pt-6 sm:flex-row sm:gap-4"
-            >
-              <div class="flex sm:w-20 sm:justify-end">
-                <h4 class="text-slate-400">Work</h4>
-              </div>
-
-              <p>
-                <span class="font-semibold">Frontend Engineer</span> @
-                <a
-                  href="https://www.technologiestiftung-berlin.de/"
-                  target="_blank"
-                  class="text-blue-600 underline visited:text-purple-500"
-                  >Technologiestiftung Berlin</a
-                >
-                <span class="pl-2 italic text-slate-300"
-                  >Apr 2023 - Present</span
-                >
+              <p class="max-w-lg">
+                Software engineer who is passionate about web technologies,
+                performance, accessibility, privacy, and sustainability.
               </p>
             </div>
-
-            <div class="flex w-full flex-col gap-4 pt-2 sm:pl-24">
-              <p>
-                Open Source Prototypes I have worked on during my time at
-                Technologiestiftung Berlin:
-              </p>
-              <ul class="flex flex-col gap-2">
-                <li class="list-inside list-disc">
-                  <span class="italic">Idea Machine</span>, a physical computing
-                  prototype that uses ChatGPT to generate ideas for the
-                  digitalization of Berlin:
-                  <a
-                    href="https://github.com/technologiestiftung/idea-machine"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >GitHub Link</a
-                  >
-                </li>
-                <li class="list-inside list-disc">
-                  <a
-                    href="https://chat.oeffentliches-gestalten.de/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >Chatbot Öffentliches Gestalten</a
-                  >, a proof-of-concept for a web app using ChatGPT as chatbot
-                  to answer questions about the book
-                  <i>Public Service Design Handbook</i>: <a
-                    href="https://github.com/technologiestiftung/oeffentliches-gestalten-gpt-search"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >GitHub Link</a
-                  >
-                </li>
-                <li class="list-inside list-disc">
-                  <a
-                    href="https://giessdenkiez.de/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >Giess den Kiez</a
-                  >, a web app that was made to enable coordinated citizen
-                  participation in the irrigation of urban trees: <a
-                    href="https://github.com/technologiestiftung/giessdenkiez-de"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >GitHub Link</a
-                  >
-                </li>
-              </ul>
+          </section>
+          <section
+            class="flex w-full flex-col justify-start gap-1 sm:flex-row sm:gap-4"
+          >
+            <div class="flex flex-none sm:w-20 sm:justify-end">
+              <h4 class="text-slate-400">Work</h4>
             </div>
 
-            <div class="flex w-full pt-6">
-              <div
-                class="flex w-fit flex-col flex-wrap gap-1 sm:gap-4 sm:pl-24"
-              >
-                <p>
-                  <span class="font-semibold">Full-Stack Engineer</span>
-                   @
-                  <a
-                    href="https://www.acker.co/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                  >
-                    Acker&nbsp;e.&nbsp;V.
-                  </a>
-                  <span class="pl-2 italic text-slate-300">
-                    Feb 2020 - Apr 2023
-                  </span>
-                </p>
-              </div>
-            </div>
+            <div class="flex shrink flex-col gap-6">
+              {
+                experiences.map((experience) => (
+                  <div class="flex flex-col gap-3">
+                    <p>
+                      <span class="font-semibold">{experience.title}</span> @
+                      <a
+                        href={experience.link}
+                        target="_blank"
+                        class="text-blue-600 underline visited:text-purple-500"
+                      >
+                        {experience.company}
+                      </a>{" "}
+                      <span class="font-light italic text-slate-400">
+                        {experience.date}
+                      </span>
+                    </p>
 
-            <div class="flex w-full flex-col gap-1 pt-2 sm:gap-4 sm:pl-24">
-              Products I have worked on during my time at Acker&nbsp;e.&nbsp;V.:
+                    <p>{experience.subtitle}</p>
 
-
-              <ul class="flex flex-col gap-2">
-                <li class="list-inside list-disc">
-                  <a
-                    href="https://www.acker.co/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >acker.co</a
-                  >: a new website as part of a brand relaunch with subpages for
-                  each program.
-                </li>
-                <li class="list-inside list-disc">
-                  <a
-                    href="https://mein.acker.co/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >mein.acker.co
-                  </a>: an educational platform with personalized content for
-                  educators to enhance their curriculum with Acker's programs.
-                </li>
-                <li class="list-inside list-disc">
-                  <a
-                    href="https://apps.apple.com/de/app/ackerpause/id1515122523"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                    >Ackerpause</a
-                  >: a mobile app to help people to take care of the vegetables
-                  they're growing.
-                </li>
-              </ul>
+                    {experience.products.length > 0 && (
+                      <ul class="flex flex-col gap-2">
+                        {experience.products.map((product) => (
+                          <li class="list-inside list-disc">
+                            <a
+                              href={product.previewLink}
+                              target="_blank"
+                              class="text-blue-600 underline visited:text-purple-500"
+                            >
+                              {product.linkLabel}
+                            </a>
+                            <Fragment set:html={product.description} />{" "}
+                            {product.githubLink && (
+                              <a
+                                href={product.githubLink}
+                                target="_blank"
+                                class="text-blue-600 underline visited:text-purple-500"
+                              >
+                                GitHub Link
+                              </a>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))
+              }
             </div>
           </section>
-          <section>
-            <div class="flex w-full flex-col gap-1 pt-6 sm:flex-row sm:gap-4">
-              <div class="flex sm:w-20 sm:justify-end">
-                <h4 class="text-slate-400">Education</h4>
-              </div>
-              <div class="flex w-fit flex-col gap-2">
-                <p>
-                  <span class="font-semibold"
-                    >Master of Science Computer Science</span
-                  >
-                   @
-                  <a
-                    href="https://tu.berlin/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                  >
-                    TU Berlin
-                  </a>
-                  <span class="pl-2 italic text-slate-300">Dec 2021</span>
-                </p>
-
-                <p>
-                  <span class="font-semibold"
-                    >Bachelor of Science Engineering Informatics</span
-                  >
-                   @
-                  <a
-                    href="https://htw-berlin.de/"
-                    target="_blank"
-                    class="text-blue-600 underline visited:text-purple-500"
-                  >
-                    HTW Berlin
-                  </a>
-                  <span class="pl-2 italic text-slate-300">Apr 2016</span>
-                </p>
-              </div>
+          <section class="flex w-full flex-col gap-1 sm:flex-row sm:gap-4">
+            <div class="flex sm:w-20 sm:justify-end">
+              <h4 class="text-slate-400">Education</h4>
             </div>
+            <ul class="flex w-fit flex-col gap-2">
+              {
+                degrees.map((degree) => (
+                  <li>
+                    <span class="font-semibold">{degree.degree}</span>{" "}
+                    <span class="italic"> {degree.program}</span> @
+                    <a
+                      href={degree.link}
+                      target="_blank"
+                      class="text-blue-600 underline visited:text-purple-500"
+                    >
+                      {degree.institution}
+                    </a>{" "}
+                    <span class="pl-2 font-light italic text-slate-400">
+                      {degree.date}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
           </section>
         </div>
       </div>
