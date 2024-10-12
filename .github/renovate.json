@@ -1,0 +1,7 @@
+{
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["every 2 weeks on Saturday before 7am"],
+  "semanticCommits": "enabled",
+  "lockFileMaintenance": { "enabled": true }
+}
