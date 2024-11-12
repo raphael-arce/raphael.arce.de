@@ -8,6 +8,13 @@ export const experiences = [
       "Open source prototypes/products I have worked on during my time at Technologiestiftung Berlin: ",
     products: [
       {
+        previewLink: "https://baergpt.citylab-berlin.org/",
+        linkLabel: "BärGPT",
+        description:
+          ",  a platform that enables public servants to explore and test AI applications at scale in administrative work.",
+        githubLink: "https://github.com/technologiestiftung/ber-gpt-frontend",
+      },
+      {
         previewLink: "https://anmelde-check.vercel.app/",
         linkLabel: "Anmelde-Check",
         description:
@@ -22,6 +29,13 @@ export const experiences = [
         githubLink: "https://github.com/technologiestiftung/parla-frontend",
       },
       {
+        previewLink: "https://giessdenkiez.de/",
+        linkLabel: "Giess den Kiez",
+        description:
+          ", a web app that enables coordinated citizen participation in the irrigation of urban trees.",
+        githubLink: "https://github.com/technologiestiftung/giessdenkiez-de",
+      },
+      {
         previewLink: "https://future-greetings.vercel.app/",
         linkLabel: "Idea Machine",
         description:
@@ -30,19 +44,20 @@ export const experiences = [
           "https://github.com/technologiestiftung/idea-machine-backend",
       },
       {
+        previewLink: "https://stakeholder-radar.vercel.app/",
+        linkLabel: "Stakeholder Radar",
+        description: `, a tool that visualizes the stakeholders of a topic or project across multiple dimensions. For example, it has been used to create a  
+                      <a href='https://github.com/technologiestiftung/post-covid-stakeholder-map' target="_blank" class="text-blue-600 underline visited:text-purple-500">Post-COVID Stakeholder Map</a> and a
+                       <a href='https://github.com/technologiestiftung/post-covid-data-map' target="_blank" class="text-blue-600 underline visited:text-purple-500">Post-COVID Data Map</a>.`,
+        githubLink: "https://github.com/technologiestiftung/stakeholder-radar",
+      },
+      {
         previewLink: "https://chat.oeffentliches-gestalten.de/",
         linkLabel: "Chatbot Öffentliches Gestalten",
         description:
           ", a proof-of-concept AI chatbot to answer questions about the book <i>Public Service Design Handbook</i>.",
         githubLink:
           "https://github.com/technologiestiftung/oeffentliches-gestalten-gpt-search",
-      },
-      {
-        previewLink: "https://giessdenkiez.de/",
-        linkLabel: "Giess den Kiez",
-        description:
-          ", a web app that enables coordinated citizen participation in the irrigation of urban trees.",
-        githubLink: "https://github.com/technologiestiftung/giessdenkiez-de",
       },
     ],
   },
