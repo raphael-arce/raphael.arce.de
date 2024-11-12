@@ -94,7 +94,7 @@ export const experiences = [
   {
     title: "Working student",
     company: "SNET - TU Berlin",
-    date: "Nov 2018 - Dez 2019",
+    date: "Nov 2018 - Dec 2019",
     link: "https://www.tu.berlin/snet",
     subtitle:
       "Development of decentralised, privacy-oriented applications for self-sovereign identities using blockchain technologies.",
